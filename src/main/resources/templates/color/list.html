@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title>[[#{color.list.headline}]]</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 class="flex-grow-1">[[#{color.list.headline}]]</h1>
+                <div>
+                    <a th:href="@{/colors/add}" class="btn btn-primary ms-2">[[#{color.list.createNew}]]</a>
+                </div>
+            </div>
+            <div th:if="${colors.empty}">[[#{color.list.empty}]]</div>
+            <div th:if="${!colors.empty}" class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col">[[#{color.id.label}]]</th>
+                            <th scope="col">[[#{color.colorName.label}]]</th>
+                            <th scope="col">[[#{color.x.label}]]</th>
+                            <th scope="col">[[#{color.y.label}]]</th>
+                            <th><!-- --></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="color : ${colors}">
+                            <td>[[${color.id}]]</td>
+                            <td>[[${color.colorName}]]</td>
+                            <td>[[${color.x}]]</td>
+                            <td>[[${color.y}]]</td>
+                            <td>
+                                <div class="float-end text-nowrap">
+                                    <a th:href="@{/colors/edit/{id}(id=${color.id})}" class="btn btn-sm btn-secondary">[[#{color.list.edit}]]</a>
+                                    <form th:action="@{/colors/delete/{id}(id=${color.id})}"
+                                            th:hx-confirm="#{delete.confirm}" method="post" class="d-inline">
+                                        <button type="submit" class="btn btn-sm btn-secondary">[[#{color.list.delete}]]</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>
