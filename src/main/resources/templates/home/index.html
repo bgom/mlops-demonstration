@@ -3,15 +3,22 @@
         layout:decorate="~{layout}">
     <head>
         <title>[[#{home.index.headline}]]</title>
+        <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
+        <script>
+            function triggerCustomEvent() {
+                console.log('afterSwap triggered');
+                var event = new CustomEvent('refreshPredictions');
+                document.querySelector('#otherCharts').dispatchEvent(event);
+            }
+        </script>
     </head>
     <body>
         <div layout:fragment="content">
             <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-8">
-                        <div hx-trigger="load" hx-get="/colors/data-point-chart"></div>
-                    </div>
+                <div class="row">
+                    <div hx-trigger="load" hx-get="/colors/ml-ops-demo-charts"></div>
                 </div>
+
             </div>
 
         </div>

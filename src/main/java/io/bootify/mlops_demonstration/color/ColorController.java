@@ -69,7 +69,7 @@ public class ColorController {
         return "redirect:/colors";
     }
 
-    @GetMapping("/data-point-chart")
+    @GetMapping("/ml-ops-demo-charts")
     public String generateDataFragment(@RequestParam(name = "generateNewBatch", required = false) Boolean generateNewBatch,
                                        Model model) {
         if (generateNewBatch != null && generateNewBatch) {
@@ -77,6 +77,17 @@ public class ColorController {
         }
         List<ColorDTO> colorDTOList = colorService.getLatestBatch();
         model.addAttribute("dataPoints", colorDTOList);
-        return "color/data-point-chart";
+        return "color/ml-ops-demo-charts";
+    }
+
+    @GetMapping("/scatter-chart")
+    public String generateScatterChart(@RequestParam(name = "generateNewBatch", required = false) Boolean generateNewBatch,
+                                       Model model) {
+        if (generateNewBatch != null && generateNewBatch) {
+            colorService.generate(100);
+        }
+        List<ColorDTO> colorDTOList = colorService.getLatestBatch();
+        model.addAttribute("dataPoints", colorDTOList);
+        return "color/scatter-chart";
     }
 }
