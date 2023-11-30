@@ -38,6 +38,9 @@ public class Color {
     private Long id;
 
     @Column
+    private Integer batch;
+
+    @Column
     private String colorName;
 
     @Column
